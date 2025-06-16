@@ -4,7 +4,7 @@ import Spinner from "./components/Spinner";
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [afterCursors, setAfterCursors] = useState([""]); // for storing cursors per page
+  const [afterCursors, setAfterCursors] = useState([""]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -26,7 +26,6 @@ function App() {
       setCurrentPage(pageIndex);
       setHasNextPage(!!data.data.after);
 
-      // Store next cursor only if going forward
       if (data.data.after && afterCursors.length === pageIndex + 1) {
         setAfterCursors((prev) => [...prev, data.data.after]);
       }
@@ -38,7 +37,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchPage(0); // load first page
+    fetchPage(0);
   }, []);
 
   const handleNext = () => {
